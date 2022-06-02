@@ -1,4 +1,4 @@
-/* main.js */
+/* start.js */
 
 window.addEventListener("load", event => {
 	settings.form["goButton"].addEventListener("click",
@@ -9,7 +9,7 @@ window.addEventListener("load", event => {
 //	window.location.searchParams;
 });
 // serverdate
-import { getServerDate } from "https://github.com/MoralCode/server-date/blob/master/serverDate.js";
+import { getServerDate } from "./serverDate.js";
 
 var sound = new Audio("countdown.mp3");
 
@@ -28,7 +28,7 @@ setInterval(()=>{
 var settings = {
 	form : document.querySelector("#settingsForm"),
 	list : [],
-	startListApiURL : undefined,
+	startListApiURL : true,
 	getSearch() {
 		
 		if (Boolean(this.form.EventId.valueAsNumber && this.form.DayId.valueAsNumber)){
@@ -53,14 +53,14 @@ var settings = {
 		this.url
 	},
 	formButton() {
-		this.getSearch();
-		this.setSearch();
+		//this.getSearch();
+		//this.setSearch(); disabled for ariel relax.
 		sound.muted = true;
 		sound.play();
 		setTimeout(()=>sound.pause(), 50);
 		sound.muted = false;
 		if (this.startListApiURL) {
-			//this.startListApiURL = "examplestartlists/test"
+			this.startListApiURL = "arielrelax.json";
 			console.log("Getting " + this.startListApiURL);
 			this.readStartList(this.startListApiURL)
 			.then(r => {
