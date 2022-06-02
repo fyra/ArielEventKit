@@ -153,9 +153,9 @@ export class Timer {
 			distance = Math.abs(distance);
 		}
 		else this.sign = "&plus;";
-		this.hours = Math.floor(distance / (1000 * 60 * 60));
-		this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-		this.seconds = Math.round((distance / 1000) % 60);
+		this.hours = Math.trunc(distance / (1000 * 60 * 60));
+		this.minutes = Math.trunc((distance % (1000 * 60 * 60)) / (1000 * 60));
+		this.seconds = Math.trunc((distance / 1000) % 60);
 		//this.hundredths = Math.round((distance % (1000 * 60)) / 10);
 		this.updateDisplay();
 		if (!this.#soundStarted) {
