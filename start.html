@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta content='width=device-width, initial-scale=1' name='viewport'/>
 <html>
-	<title>aidajsapp</title>
+	<title>countdown</title>
 	<script type="module" src="start.js"></script>
 	<style>
 		@font-face {
@@ -10,7 +10,7 @@
 			}
 		html {
 			font-family: raleway;
-			background-color: lightgray;
+			background-color: gray;
 		}
 		body {
 			font-size:			2em;
@@ -21,11 +21,9 @@
 		}
 		* {
 			justify-self: 			center;
-			transition-property:	opacity, color, background-color;
-			transition-duration:	4s, 4s, 4s;
-			transition-timing-function: ease-in-out;
+			transition:	all 6s ease-in-out;
 		}
-		form {
+		.settingsForm, #options {
 			display: flex;
 			flex-wrap: wrap;
 		}
@@ -48,65 +46,80 @@
 		[type="button"] {
 			flex-grow: 2;
 		}
-		
-		.deleting{ font-}
 		.timer {
-		
 			font-family: serif;
 			font-variant-caps: small-caps;
 			font-variant-numeric: tabular-nums;
+			font-weight: 100;
 		}
-		.diver > * { margin: 10px}
+		.diver {
+			padding: 0.2rem 0.6rem;
+			display: flex;
+			justify-content: space-between;
+		}
 		.timerHours::after { content: "h"}
 		.timerHundredths { display: none}
 		.timerMinutes::after { content: "'"}
 		.timerSeconds::after { content: '"'}
 		label { display: none}
-		
-		.diver > td { margin-left: -2px}
-		.active:not(tr) {
-			background-color: white;
-			border-radius: 0.3rem;
+		.inactive {
+			opacity: 70%;
+			font-size: 80%;
 		}
-		table{
-			 border-spacing: 0 initial;
-		}
-		.active td:first-child,
-		.active th:first-child {
-			border-radius: 10px 0 0 10px;
+		.active, h1 {
 			background-color: white;
-			margin: 0;
-			padding: 0;
+			border-radius: 1rem;
+			font-size: 120%;
 		}
-		.active td:last-child,
-		.active th:last-child {
-			border-radius: 0 10px 10px 0;
-			background-color: white;
-			margin: 0;
-			padding: 0;
+		.list, #clock {
+			list-style-type: none;
+			background-color: lightgray;
+			border-radius: 1rem;
+			padding: 0.5rem;
+		}
+		#options{
+			float: left;
+			position: absolute;
+			right: 3rem;
+			top: 3rem;
+			outline: 0.2rem solid cornflowerblue;
+			max-width: 17rem;
+			border-radius: 1em;
+		}
+		.name {
+			flex-grow:2;
+			padding-right: 1rem;
+		}
+		.order, .name, .timer {
+			padding: 0.5rem;
 		}
 	</style>
-	<h1 class="active">countdown</h1>
-	<h2></h2>
-	<form id="settingsForm" style="display:none">
-		<input name="EventId" placeholder="EventId" type="number" maxlength="4"></input>
-		<input name="DayId" placeholder="DayId" type="number" maxlength="4"></input><br>
-		<input name="goButton" type="button" value="Go"></input>
-	</form>
-	<table>
-		<tr class="diver" style="display:none">
-			<td>
-				<span class="order"></span>
+	<h1>countdown</h1>
+	<h2 class="timer" id="clock"></h2>
+	<section id="options">
+		<form id="settingsForm" style="display:none">
+			<input name="EventId" placeholder="EventId" type="number" maxlength="4"></input>
+			<input name="DayId" placeholder="DayId" type="number" maxlength="4"></input>
+			<input name="goButton" type="button" value="Go"></input>
+		</form>
+		<input name="Mute" type="button" value="Mute" style="display:none">
+		<input name="Test" type="button" value="StartNow">
+	</section>
+	<section class="list">
+		<div class="diver" style="display:none">
+			<span class="order"></span>
+			<div class="name"></span>
 				<span class="diverFirstName"></span>
 				<span class="diverLastName"></span>
-			</td>
-			<td class="timer">
+			</div>
+			<span class="timer">
 				<span class="timerSign">+</span>
 				<span class="timerHours">00</span>
 				<span class="timerMinutes">00</span>
 				<span class="timerSeconds">00</span>
 				<span class="timerHundredths">00</span>
-			</td>
-		</tr>
-	</table>
+			</span>
+		</div>
+	</section
+	>
 </html>

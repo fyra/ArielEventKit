@@ -6,8 +6,10 @@ window.addEventListener("load", event => {
 	new URL(window.location).searchParams
 	.forEach((value,key) => {settings.form[key].value = value})
 	settings.formButton()
-//	window.location.searchParams;
+	document.querySelector('[value="StartNow"]').addEventListener("click",
+		()=>settings.startNow());
 });
+
 // serverdate
 import { getServerDate } from "./serverDate.js";
 
@@ -51,6 +53,13 @@ var settings = {
 	},
 	searchToForm(){
 		this.url
+	},
+	startNow(){
+		let now = Date.now() + lastSample["offset"] + 130000;
+		let base = this.list[0].current;
+		for (let i = 0; i < this.list.length; i++) {
+			this.list[i].current = now + (this.list[i].current - base)
+		}
 	},
 	formButton() {
 		//this.getSearch();
@@ -99,7 +108,10 @@ var settings = {
 	setActive(displayNode){
 		let prev = document.querySelector(".active");
 		displayNode.classList.add("active");
-		prev.classList.remove("active");
+		if (prev) {
+			prev.classList.remove("active");
+			prev.classList.add("inactive");
+		}
 	}
 }
 export class Timer {
@@ -110,7 +122,7 @@ export class Timer {
     seconds;
     hundredths;
     display;
-    #current; // target time in milliseconds
+    current; // target time in milliseconds
     #interval;  //id of the interval used for updating
     #updateDelay = 45; // in ms, delay between updates, is passed to setInterval.
     #soundStarted = false;
@@ -130,7 +142,7 @@ export class Timer {
 		return date.getTime();
 	}
 	startCountdown(hourMinString, dateString = "") {
-		this.#current=this.#toMilliseconds(hourMinString, dateString);
+		this.current=this.#toMilliseconds(hourMinString, dateString);
 		if (this.#interval) {
 			clearInterval(this.#interval)
 		}
@@ -146,7 +158,7 @@ export class Timer {
 	}
 	update() {
 		// current, next are unix timestamps.
-		let distance = Date.now() + lastSample["offset"] - this.#current;
+		let distance = Date.now() + lastSample["offset"] - this.current;
 		let signedDistance = -distance;
 		if (distance < 0) { 
 			this.sign = "&minus;";
@@ -156,13 +168,15 @@ export class Timer {
 		this.hours = Math.trunc(distance / (1000 * 60 * 60));
 		this.minutes = Math.trunc((distance % (1000 * 60 * 60)) / (1000 * 60));
 		this.seconds = Math.trunc((distance / 1000) % 60);
-		//this.hundredths = Math.round((distance % (1000 * 60)) / 10);
+		//this.hundredths = Math.trunc((distance % (1000 * 60)) / 10);
 		this.updateDisplay();
+		if (!(this.display.classList.contains("active") || this.display.classList.contains("inactive") ) && ((Math.round(signedDistance/10)) < 36000)) {
+			settings.setActive(this.display);
+		}
 		if (!this.#soundStarted) {
 			if ((Math.round(signedDistance/10)) == 12550) {
 				sound.currentTime = 0;
 				sound.play();
-				settings.setActive(this.display);
 				console.log(this.display.querySelector(".order").innerText, "distance: ", distance);
 				this.#soundStarted = true;
 			}

@@ -12,28 +12,6 @@
             "startListAvailable": true
         },
         "startList": [
-			{
-                "order": 0,
-                "diverFirstName": "Starter",
-                "diverLastName": "/ speaker test",
-                "avatarImgSrc": "https:\/\/www.aidainternational.org\/assets\/img\/no-avatar.png",
-                "diverGender": "M",
-                "diverNationality": "United Kingdom",
-                "diverNationalityAbrv": "GB",
-                "diverNationalityAbrvAlpha3": "GBR",
-                "discipline": "Dynamic With Fins",
-                "disciplineAbrv": "DYN",
-                "officialTime": "07:27",
-                "warmUpTime": "06:49",
-                "line": 1,
-                "announcedPerformance": 180,
-                "reportedPerformance": null,
-                "performanceMeasurement": "meters",
-                "judgeStatus": "",
-                "penaltyCard": "",
-                "penaltyPoints": 0,
-                "points": 0
-            },
             {
                 "order": 1,
                 "diverFirstName": "Dean",
