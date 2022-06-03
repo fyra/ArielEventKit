@@ -1,6 +1,6 @@
 # ArielEventKit
 Webpages for running AIDA freediving events.
 
-[Countdown](./start.html)
+[Countdown](./countdown/start.html)
 
 Judgecards coming soon.
