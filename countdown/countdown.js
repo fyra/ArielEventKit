@@ -75,7 +75,7 @@ var settings = {
 		setTimeout(()=>sound.pause(), 50);
 		sound.muted = false;
 		if (this.startListApiURL) {
-			this.startListApiURL = "arielrelax.json";
+			this.startListApiURL = "test.json";
 			console.log("Getting " + this.startListApiURL);
 			this.readStartList(this.startListApiURL)
 			.then(r => {
