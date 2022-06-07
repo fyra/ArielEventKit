@@ -8,6 +8,8 @@ window.addEventListener("load", event => {
 	settings.formButton()
 	document.querySelector('[value="StartNow"]').addEventListener("click",
 		()=>settings.startNow());
+	document.querySelector('[value="Mute"]').addEventListener("click",
+		()=>settings.mute());
 });
 
 // serverdate
@@ -32,7 +34,6 @@ var settings = {
 	list : [],
 	startListApiURL : true,
 	getSearch() {
-		
 		if (Boolean(this.form.EventId.valueAsNumber && this.form.DayId.valueAsNumber)){
 			this.startListApiURL = "../aidaapi" 
 			+ "?EventId=" + this.form.EventId.valueAsNumber
@@ -60,6 +61,11 @@ var settings = {
 		for (let i = 0; i < this.list.length; i++) {
 			this.list[i].current = now + (this.list[i].current - base)
 		}
+	},
+	mute(element){
+		sound.muted = !sound.muted;
+		if (sound.muted) element.classList.add("muted");
+		else element.classList.remove("muted");
 	},
 	formButton() {
 		//this.getSearch();
