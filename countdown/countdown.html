@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<html>
+	<title>countdown</title>
+	<script type="module" src="countdown.js"></script>
+	<style>
+		@font-face {
+			font-family: 'Raleway';
+			src: url(raleway.woff2) format('woff2');
+			}
+		html {
+			font-family: raleway;
+			background-color: gray;
+		}
+		body {
+			font-size:			2em;
+			display:			flex;
+			flex-direction: 	column;
+			justify-content: 	center;
+			align-items: 		center;
+		}
+		* {
+			justify-self: 			center;
+			transition:	all 6s ease-in-out;
+		}
+		.settingsForm, #options {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		[type="number"],
+		[type="button"]  {
+			box-sizing: border-box;
+			width: 50%;
+			padding: 0 1rem;
+			appearance: textfield;
+			border:none;
+			background: none;
+			font-size: 100%;
+			font-family: monospace;
+			font-variant-numeric: tabular-nums;
+			flex-grow: -1;
+		}
+		[name="EventId"] {
+			text-align: right;
+		}
+		[type="button"] {
+			flex-grow: 2;
+		}
+		.timer {
+			font-family: serif;
+			font-variant-caps: small-caps;
+			font-variant-numeric: tabular-nums;
+			font-weight: 100;
+		}
+		.diver {
+			padding: 0.2rem 0.6rem;
+			display: flex;
+			justify-content: space-between;
+		}
+		.timerHours::after { content: "h"}
+		.timerHundredths { display: none}
+		.timerMinutes::after { content: "'"}
+		.timerSeconds::after { content: '"'}
+		label { display: none}
+		.inactive {
+			opacity: 70%;
+			font-size: 80%;
+		}
+		.active, h1 {
+			background-color: white;
+			border-radius: 1rem;
+			font-size: 120%;
+		}
+		.list, #clock {
+			list-style-type: none;
+			background-color: lightgray;
+			border-radius: 1rem;
+			padding: 0.5rem;
+		}
+		#options{
+			float: left;
+			position: absolute;
+			right: 3rem;
+			top: 3rem;
+			outline: 0.2rem solid cornflowerblue;
+			max-width: 17rem;
+			border-radius: 1em;
+		}
+		.name {
+			flex-grow:2;
+			padding-right: 1rem;
+		}
+		.order, .name, .timer {
+			padding: 0.5rem;
+		}
+	</style>
+	<h1>countdown</h1>
+	<h2 class="timer" id="clock"></h2>
+	<section id="options">
+		<form id="settingsForm" style="display:none">
+			<input name="EventId" placeholder="EventId" type="number" maxlength="4"></input>
+			<input name="DayId" placeholder="DayId" type="number" maxlength="4"></input>
+			<input name="goButton" type="button" value="Go"></input>
+		</form>
+		<input name="Mute" type="button" value="Mute" style="display:none">
+		<input name="Test" type="button" value="StartNow">
+	</section>
+	<section class="list">
+		<div class="diver" style="display:none">
+			<span class="order"></span>
+			<div class="name"></span>
+				<span class="diverFirstName"></span>
+				<span class="diverLastName"></span>
+			</div>
+			<span class="timer">
+				<span class="timerSign">+</span>
+				<span class="timerHours">00</span>
+				<span class="timerMinutes">00</span>
+				<span class="timerSeconds">00</span>
+				<span class="timerHundredths">00</span>
+			</span>
+		</div>
+	</section
+	>
+</html>
