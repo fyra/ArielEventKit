@@ -8,8 +8,9 @@ window.addEventListener("load", event => {
 	settings.formButton()
 	document.querySelector('[value="StartNow"]').addEventListener("click",
 		()=>settings.startNow());
-	document.querySelector('[value="Mute"]').addEventListener("click",
-		()=>settings.mute());
+	let muteElement = document.querySelector('[value="Mute"]');
+	muteElement.addEventListener("click",
+		()=>settings.mute(muteElement));
 });
 
 // serverdate
