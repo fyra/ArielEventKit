@@ -21,7 +21,11 @@
 		}
 		* {
 			justify-self: 			center;
-			transition:	all 6s ease-in-out;
+			transition:	all 2s ease-in-out;
+		}
+		h1{
+			position: relative;
+			left: -5rem;
 		}
 		.settingsForm, #options {
 			display: flex;
@@ -53,6 +57,7 @@
 			color: red;
 		}
 		.timer {
+			white-space:nowrap;
 			font-family: serif;
 			font-variant-caps: small-caps;
 			font-variant-numeric: tabular-nums;
@@ -108,7 +113,7 @@
 			<input name="DayId" placeholder="DayId" type="number" maxlength="4"></input>
 			<input name="goButton" type="button" value="Go"></input>
 		</form>
-		<input type="button" value="Mute">
+		<input type="button" value="Mute" class="muted">
 		<input type="button" value="ResetActive">
 		<input type="button" value="StartNow">
 	</section>

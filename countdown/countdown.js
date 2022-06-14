@@ -18,7 +18,8 @@ window.addEventListener("load", event => {
 // serverdate
 import { getServerDate } from "../server-date/serverDate.js";
 
-var sound = new Audio("countdown.mp3");
+var countdownSound = new Audio("countdown.mp3");
+
 
 let lastSample = {};
 const synchronize = async () => {
@@ -30,12 +31,18 @@ setInterval(synchronize, 10 * 60 * 1000);
 setInterval(()=>{
 	let d = new Date(Date.now() + lastSample["offset"])
 	document.querySelector("h2").innerText = d.toTimeString().slice(0,8);
+	for (let timer of settings.list) {
+		timer.update();
+	}
 }, 45);
+
 
 var settings = {
 	form : document.querySelector("#settingsForm"),
 	list : [],
 	startListApiURL : true,
+	mutebutton : document.querySelector('[value="Mute"]'),
+	sound : countdownSound,
 
 	getSearch() {
 		if (Boolean(this.form.EventId.valueAsNumber && this.form.DayId.valueAsNumber)){
@@ -66,18 +73,18 @@ var settings = {
 			this.list[i].current = now + (this.list[i].current - base)
 		}
 	},
-	mute(element){
-		sound.muted = !sound.muted;
-		if (sound.muted) element.classList.add("muted");
-		else element.classList.remove("muted");
+	mute(){
+		this.sound.muted = !this.sound.muted;
+		if (this.sound.muted) this.mutebutton.classList.add("muted");
+		else this.mutebutton.classList.remove("muted");
+		console.log(this.sound);
 	},
 	formButton() {
 		//this.getSearch();
 		//this.setSearch(); disabled for ariel relax.
-		sound.muted = true;
-		sound.play();
-		setTimeout(()=>sound.pause(), 50);
-		sound.muted = false;
+		this.mute();
+		this.sound.play();
+		setTimeout(()=>this.sound.pause(), 50);
 		if (this.startListApiURL) {
 			this.startListApiURL = "test.json";
 			console.log("Getting " + this.startListApiURL);
@@ -133,12 +140,10 @@ export class Timer {
     hundredths;
     display;
     current; // target time in milliseconds
-    #interval;  //id of the interval used for updating
-    #updateDelay = 45; // in ms, delay between updates, is passed to setInterval.
     #soundStarted = false;
-    constructor (officialTopString, displayNode, dayInfoDate){
+    constructor (officialTopTimeString, displayNode, dayInfoDate){
 		this.display = displayNode;
-		this.startCountdown(officialTopString, dayInfoDate);
+		this.current=this.#toMilliseconds(officialTopTimeString, dayInfoDate);
     }
 	#toMilliseconds(hourMinString, dateString = "") {
 		// hourMinString looks like "17:30" "07:05"
@@ -151,23 +156,7 @@ export class Timer {
 		date.setMilliseconds(0);
 		return date.getTime();
 	}
-	startCountdown(hourMinString, dateString = "") {
-		this.current=this.#toMilliseconds(hourMinString, dateString);
-		if (this.#interval) {
-			clearInterval(this.#interval)
-		}
-		this.#interval = setInterval( () => {
-			this.update(), this.#updateDelay
-			});
-		
-	}
-    stopCountdown() {
-		clearInterval(this.#interval);
-		this.#interval = 0;
-		this.setDisplay("±","00","00","00","00");
-	}
 	update() {
-		// current, next are unix timestamps.
 		let distance = Date.now() + lastSample["offset"] - this.current;
 		let signedDistance = -distance;
 		if (distance < 0) { 
@@ -188,8 +177,8 @@ export class Timer {
 		}
 		if (!this.#soundStarted) {
 			if ((Math.round(signedDistance/10)) == 12550) {
-				sound.currentTime = 0;
-				sound.play();
+				settings.sound.currentTime = 0;
+				settings.sound.play();
 				console.log(this.display.querySelector(".order").innerText, "distance: ", distance);
 				this.#soundStarted = true;
 			}
