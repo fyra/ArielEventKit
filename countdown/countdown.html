@@ -27,6 +27,9 @@
 			display: flex;
 			flex-wrap: wrap;
 		}
+		#options, #options * {
+			transition: unset;
+		}
 		[type="number"],
 		[type="button"]  {
 			box-sizing: border-box;
@@ -106,6 +109,7 @@
 			<input name="goButton" type="button" value="Go"></input>
 		</form>
 		<input type="button" value="Mute">
+		<input type="button" value="ResetActive">
 		<input type="button" value="StartNow">
 	</section>
 	<section class="list">

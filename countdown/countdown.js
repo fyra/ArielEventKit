@@ -11,6 +11,8 @@ window.addEventListener("load", event => {
 	let muteElement = document.querySelector('[value="Mute"]');
 	muteElement.addEventListener("click",
 		()=>settings.mute(muteElement));
+	document.querySelector('[value="ResetActive"]').addEventListener("click",
+		()=>settings.setActive(document.querySelector(".diver")));
 });
 
 // serverdate
@@ -34,6 +36,7 @@ var settings = {
 	form : document.querySelector("#settingsForm"),
 	list : [],
 	startListApiURL : true,
+
 	getSearch() {
 		if (Boolean(this.form.EventId.valueAsNumber && this.form.DayId.valueAsNumber)){
 			this.startListApiURL = "../aidaapi" 
@@ -171,7 +174,10 @@ export class Timer {
 			this.sign = "&minus;";
 			distance = Math.abs(distance);
 		}
-		else this.sign = "&plus;";
+		else {
+			this.sign = "&plus;";
+			distance = distance + 1000
+		}
 		this.hours = Math.trunc(distance / (1000 * 60 * 60));
 		this.minutes = Math.trunc((distance % (1000 * 60 * 60)) / (1000 * 60));
 		this.seconds = Math.trunc((distance / 1000) % 60);
