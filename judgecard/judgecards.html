@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<html>
+	<title>aidajsapp - judgecards</title>
+	<script type="module" src="judgecards.js"></script>
+	<style>
+	</style>
+	<link rel="stylesheet" href="my.css">
+	<h1>Judge notes cards</h1>
+	<h2></h2>
+	<form id="settingsForm" style="visibility:hidden">
+		<input name="EventId" placeholder="EventId" type="number" maxlength="4"></input>
+		<input name="DayId" placeholder="DayId" type="number" maxlength="4"></input><br>
+		<input name="goButton" type="button" value="Go"></input>
+	</form>
+	<table>
+		<!-- classes in this are populated by script.-->
+		<tr class="diver" style="display:none">
+			<td>
+				<span class="order"></span>
+				<span class="disciplineAbrv"></span>
+				<span class="line"></span>
+				<span class="officialTime"></span>
+				<span class="diverFirstName"></span>
+				<span class="diverLastName"></span>
+				<span class="diverNationalityAbrvAlpha3"></span>
+				<span class="announcedPerformance">"meters" or "time"</span>
+				<span class="performanceMeasurement"></span>
+				<!-- TODO 
+				<span class="officalDate">CEST, Wednesday</span>
+				-->
+			</td>
+		</tr>
+	</table>
+	<article class="card" style="width: 600px;margin: 0; page-break-before: always; flex-direction: column; display: flex;">
+		<header class="cardHeader">
+			<h3>ArielEventKit &mdash; Test event test11</h3>
+		</header>
+		<table class="diver">
+			<tbody class="prefill">
+				<tr>
+					<td>
+						<h2>Start</h2>
+					</td>
+					<td>
+						<h2 class="order">#1</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Discipline</h2>
+					</td>
+					<td>
+						<h2 class="disciplineAbrv">STA</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Lane</h2>
+					</td>
+					<td>
+						<h2><strong class="line">A</strong></h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Official TOP</h2>
+					</td>
+					<td>
+						<h2>
+							<strong class="officialTime">08:14</strong>
+							<span class="officalDate">CEST, Wednesday</span>
+						</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Athlete</h2>
+					</td>
+					<td>
+						<h2>
+							<strong>
+								<span class="diverFirstName">John</span>
+								<span class="diverLastName">Åkerhielm</span>
+							</strong>
+							(<span class="diverNationalityAbrvAlpha3">SWE</span>)
+						</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Announced Performance (AP)</h2>
+					</td>
+					<td>
+						<h2><span class="announcedPerformance">100</span> <span class="performanceMeasurement">meters</span></h2>
+					</td>
+				</tr>
+			</tbody>
+			<tbody class="postfill">
+				<tr>
+					<td>
+						<h2>Realized Performance (RP)</h2>
+					</td>
+					<td>
+						<h2>
+							<span class="reportedPerformance">&nbsp;&nbsp;&nbsp;</span>
+							<span class="performanceMeasurement">meters</span>
+						</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Blackout</h2>
+					</td>
+					<td>
+						<h2 class="check">DQBO</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Surface protocol</h2>
+					</td>
+					<td>
+						<h2 class="check">DQSP</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Airways</h2>
+					</td>
+					<td>
+						<div class="Checkbox"></div>
+						<h2 class="check">DQAIRWAYS</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Disqualified</h2>
+					</td>
+					<td>
+						<h2 class="check">DQOTHER</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Early start</h2>
+					</td>
+					<td>
+<!--
+						<div>&nbsp;</div>
+						<h2>sec</h2>
+-->
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Late start</h2>
+					</td>
+					<td>
+<!--
+						<div>&nbsp;</div>
+						<h2>sec</h2>
+-->
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Short turns</h2>
+					</td>
+					<td>
+<!--
+						<h2>#</h2>
+						<div>&nbsp;</div>
+-->
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Pulls</h2>
+					</td>
+					<td>
+<!--
+						<h2>#</h2>
+						<div>&nbsp;</div>
+-->
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style= "padding-bottom:0">
+						<div class="penaltyCard">
+							<div>
+								<div class="white">&nbsp;</div>
+								<h2>White</h2>
+							</div>
+							<div>
+								<div class="yellow">&nbsp;</div>
+								<h2>Yellow</h2>
+							</div>
+							<div>
+								<div class="red">&nbsp;</div>
+								<h2>Red</h2>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Comment</h2>
+					</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Judge</h2>
+					</td>
+					<td>&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+		<footer>
+			&nbsp;
+		</footer>
+	</article>
+</html>
