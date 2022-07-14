@@ -1,0 +1,24 @@
+// table0.json
+{
+	"isError": false,
+	"errorMessage": "",
+	"response": {
+		"tableInfo": {
+			"name": "tableZero",
+			"tableType": "oneBreath",
+			"tableType": "default",
+			"timeUnit": "seconds",
+			"prepareTime": 10,
+		}
+		"table": [
+			{
+				"hold": 55,
+				"breathe": 5,
+			},
+			{
+				"hold": 55,
+				"breathe": 5,
+			},
+		]
+	}
+}

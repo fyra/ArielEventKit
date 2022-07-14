@@ -1,43 +1,59 @@
 /* countdown.js */
 
 window.addEventListener("load", event => {
-	settings.form["goButton"].addEventListener("click",
-		()=>settings.formButton());
-	new URL(window.location).searchParams
-	.forEach((value,key) => {settings.form[key].value = value})
-	settings.formButton()
-	document.querySelector('[value="StartNow"]').addEventListener("click",
-		()=>settings.startNow());
-	let muteElement = document.querySelector('[value="Mute"]');
-	muteElement.addEventListener("click",
-		()=>settings.mute(muteElement));
-	document.querySelector('[value="ResetActive"]').addEventListener("click",
-		()=>settings.setActive(document.querySelector(".diver")));
+	document.querySelector('[value="populate"]').addEventListener("click",
+		()=>table.populate());
+	console.log("test!");
 });
+console.log("test!");
 
-// serverdate
-import { getServerDate } from "../server-date/serverDate.js";
+var table = {
+	table: null,
+	populate(){
+		//populate
+		console.log("pop!");
+		this.readJSON(tableURL)
+		.then(r => {
+			this.table = this.readJSON("table0.json");
+			let tableRoundNode = document.querySelector(".round");
+			for (let round of this.table){
+				let n = tableRoundNode.insertAdjacentElement("beforebegin", tableRoundNode.cloneNode(true));
+				n.querySelector(".hold").innerText = round.hold
+				n.querySelector(".breathe").innerText = round.breathe
+			}
+		})
+	},
+	start(){
+		//start
+	},
+	pause(){
+		//pause
+	},
+	stop(){
+		//stop
+	},
+	readJSON (url){
+		return fetch(url)
+		.then(response => {
+			if (!response.ok) {
+				throw new Error("HTTP error " + response.status);
+			}			
+			return response.json()
+		})
+		.then(json => {
+			if (json.isError) {
+				throw new Error("API error " + json.errorMessage);
+			}
+			return json;
+		})
+		.catch(error => {
+			this.dataError = true
+			console.error(error);
+		})
+	},
+}
 
-var countdownSound = new Audio("countdown.mp3");
-
-
-let lastSample = {};
-const synchronize = async () => {
-	lastSample = await getServerDate();
-};
-synchronize();
-setInterval(synchronize, 10 * 60 * 1000);
-
-setInterval(()=>{
-	let d = new Date(Date.now() + lastSample["offset"])
-	document.querySelector("h2").innerText = d.toTimeString().slice(0,8);
-	for (let timer of settings.list) {
-		timer.update();
-	}
-}, 45);
-
-
-var settings = {
+/*var settings = {
 	form : document.querySelector("#settingsForm"),
 	list : [],
 	startListApiURL : true,
@@ -130,9 +146,8 @@ var settings = {
 			prev.classList.add("inactive");
 		}
 	}
-}
-export class Timer {
-    officialTop;  //time we are counting to (from)
+}*/
+class Timer {
     sign;
     hours;
     minutes;

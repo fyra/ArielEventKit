@@ -4,7 +4,7 @@
 	<title>countdown</title>
 	<script type="module" src="countdown.js"></script>
 	<style>
-		@font-face {
+	/*	@font-face {
 			font-family: 'Raleway';
 			src: url(raleway.woff2) format('woff2');
 			}
@@ -108,13 +108,8 @@
 	<h1>countdown</h1>
 	<h2 class="timer" id="clock"></h2>
 	<section id="options">
-		<form id="settingsForm" style="display:none">
-			<input name="EventId" placeholder="EventId" type="number" maxlength="4"></input>
-			<input name="DayId" placeholder="DayId" type="number" maxlength="4"></input>
-			<input name="goButton" type="button" value="Go"></input>
-		</form>
 		<input type="button" value="Mute" class="muted">
-		<input type="button" value="ResetActive">
+		<input type="button" value="populate">
 		<input type="button" value="StartNow">
 	</section>
 	<section class="list">
