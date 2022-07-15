@@ -1,11 +1,10 @@
 /* countdown.js */
-
 window.addEventListener("load", event => {
 	settings.form["goButton"].addEventListener("click",
-		()=>settings.formButton());
+		()=>settings.prepare());
 	new URL(window.location).searchParams
 	.forEach((value,key) => {settings.form[key].value = value})
-	settings.formButton()
+	settings.prepare()
 	document.querySelector('[value="StartNow"]').addEventListener("click",
 		()=>settings.startNow());
 	let muteElement = document.querySelector('[value="Mute"]');
@@ -14,7 +13,6 @@ window.addEventListener("load", event => {
 	document.querySelector('[value="ResetActive"]').addEventListener("click",
 		()=>settings.setActive(document.querySelector(".diver")));
 });
-
 // serverdate
 import { getServerDate } from "../server-date/serverDate.js";
 
@@ -40,10 +38,39 @@ setInterval(()=>{
 var settings = {
 	form : document.querySelector("#settingsForm"),
 	list : [],
-	startListApiURL : true,
+	startListApiURL : false,
 	mutebutton : document.querySelector('[value="Mute"]'),
 	sound : countdownSound,
-
+	
+	prepare() {
+		//this.setSearch(); // TODO: Start using this again.
+		console.log("test");
+		this.mute();
+		this.sound.play();
+		setTimeout(()=>this.sound.pause(), 50);
+		if (true) {
+			this.startListApiURL = "summer.json";
+			console.log("Getting " + this.startListApiURL);
+			this.readStartList(this.startListApiURL)
+			.then(r => {
+				let t = document.querySelector(".diver");
+				let list = r.response.startList;
+				list.sort(function(a,b) {
+					return ((a.officialTime < b.officialTime) ? -1 : 1)
+					});
+				console.log(list);
+				for (let start of list){
+					let n = t.insertAdjacentElement("beforebegin", t.cloneNode(true));
+					n.querySelector(".order").innerText = start["order"];
+					n.querySelector(".diverFirstName").innerText = start["diverFirstName"];
+					n.querySelector(".diverLastName").innerText = start["diverLastName"];
+					this.list.push(new Timer(start["officialTime"], n, r.response.dayInfo.date));
+					
+					n.removeAttribute("style");
+				}
+			});
+		}
+	},
 	getSearch() {
 		if (Boolean(this.form.EventId.valueAsNumber && this.form.DayId.valueAsNumber)){
 			this.startListApiURL = "../aidaapi" 
@@ -53,6 +80,7 @@ var settings = {
 		else {
 			this.startListApiURL = undefined;
 		}
+		this.searchToForm();
 	},
 	url : new URL(window.location),
 	setSearch() {
@@ -64,7 +92,8 @@ var settings = {
 
 	},
 	searchToForm(){
-		this.url
+		// Fill out the form with values from url.
+		//TODO
 	},
 	startNow(){
 		let now = Date.now() + lastSample["offset"] + 130000;
@@ -78,30 +107,6 @@ var settings = {
 		if (this.sound.muted) this.mutebutton.classList.add("muted");
 		else this.mutebutton.classList.remove("muted");
 		console.log(this.sound);
-	},
-	formButton() {
-		//this.getSearch();
-		//this.setSearch(); disabled for ariel relax.
-		this.mute();
-		this.sound.play();
-		setTimeout(()=>this.sound.pause(), 50);
-		if (this.startListApiURL) {
-			this.startListApiURL = "test.json";
-			console.log("Getting " + this.startListApiURL);
-			this.readStartList(this.startListApiURL)
-			.then(r => {
-				let t = document.querySelector(".diver");
-				for (let start of r.response.startList){
-					let n = t.insertAdjacentElement("beforebegin", t.cloneNode(true));
-					n.querySelector(".order").innerText = start["order"];
-					n.querySelector(".diverFirstName").innerText = start["diverFirstName"];
-					n.querySelector(".diverLastName").innerText = start["diverLastName"];
-					this.list.push(new Timer(start["officialTime"], n, r.response.dayInfo.date));
-					
-					n.removeAttribute("style");
-				}
-			});
-		}
 	},
 	readStartList (url){
 		return fetch(url)
